@@ -17,9 +17,13 @@ package com.qaprosoft.carina.demo;
 
 import java.lang.invoke.MethodHandles;
 
+import com.zebrunner.agent.core.registrar.TestRail;
+import com.zebrunner.agent.core.registrar.Xray;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.qaprosoft.apitools.validation.JsonCompareKeywords;
@@ -40,10 +44,20 @@ import com.qaprosoft.carina.demo.api.PostUserMethod;
 public class APISampleTest implements IAbstractTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+    @BeforeClass
+    void setTestrailMeta() {
+        TestRail.createNewRun(true);
+        TestRail.includeAllTestCaseTestsInNewRun();
+        TestRail.setTestRunName("New run to test agent 333");
+        TestRail.setTestRunMilestone("zxcxzcc");
+        TestRail.setTestRunAssignee("qaengineer@solvd.com");
+        Xray.disable();
+    }
 
     @Test()
     @MethodOwner(owner = "qpsdemo")
     public void testCreateUser() throws Exception {
+        TestRail.setTestCaseId("39024");
         LOGGER.info("test");
         setCases("4555,54545");
         PostUserMethod api = new PostUserMethod();
@@ -55,6 +69,7 @@ public class APISampleTest implements IAbstractTest {
     @Test()
     @MethodOwner(owner = "qpsdemo")
     public void testCreateUserMissingSomeFields() throws Exception {
+        TestRail.setTestCaseId("39028");
         PostUserMethod api = new PostUserMethod();
         api.getProperties().remove("name");
         api.getProperties().remove("username");
@@ -66,6 +81,7 @@ public class APISampleTest implements IAbstractTest {
     @Test()
     @MethodOwner(owner = "qpsdemo")
     public void testGetUsers() {
+        TestRail.setTestCaseId("39052");
         GetUserMethods getUsersMethods = new GetUserMethods();
         getUsersMethods.expectResponseStatus(HttpResponseStatusType.OK_200);
         getUsersMethods.callAPI();
