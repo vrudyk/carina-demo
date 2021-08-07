@@ -52,6 +52,8 @@ public class WebSampleTest implements IAbstractTest {
     @BeforeClass
     void setTestrailMeta() {
         TestRail.createNewRun(true);
+        TestRail.setTestRunProjectId("21");
+        TestRail.setTestRunSuiteId("193");
         TestRail.includeAllTestCaseTestsInNewRun();
         TestRail.setTestRunName("New run to test agent 333");
         TestRail.setTestRunMilestone("zxcxzcc");
