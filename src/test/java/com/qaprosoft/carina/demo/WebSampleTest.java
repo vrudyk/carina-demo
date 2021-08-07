@@ -17,9 +17,13 @@ package com.qaprosoft.carina.demo;
 
 import java.util.List;
 
+import com.zebrunner.agent.core.registrar.Label;
+import com.zebrunner.agent.core.registrar.TestRail;
+import com.zebrunner.agent.core.registrar.Xray;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -44,11 +48,25 @@ import com.qaprosoft.carina.demo.gui.pages.NewsPage;
  * @author qpsdemo
  */
 public class WebSampleTest implements IAbstractTest {
+
+    @BeforeClass
+    void setTestrailMeta() {
+        TestRail.createNewRun(true);
+        TestRail.includeAllTestCaseTestsInNewRun();
+        TestRail.setTestRunName("New run to test agent 333");
+        TestRail.setTestRunMilestone("zxcxzcc");
+        TestRail.setTestRunAssignee("qaengineer@solvd.com");
+        Xray.disable();
+    }
+
     @Test()
     @MethodOwner(owner = "qpsdemo")
     @TestPriority(Priority.P3)
     @TestLabel(name = "feature", value = {"web", "regression"})
     public void testModelSpecs() {
+        Label.attachToTest("com.zebrunner.app/tcm.xray.test-key", "TEST-2");
+        Label.attachToTestRun("com.zebrunner.app/tcm.xray.test-execution-key", "TEST-3");
+        TestRail.setTestCaseId("39024");
         // Open GSM Arena home page and verify page is opened
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
@@ -77,6 +95,7 @@ public class WebSampleTest implements IAbstractTest {
     @TestPriority(Priority.P1)
     @TestLabel(name = "feature", value = {"web", "acceptance"})
     public void testCompareModels() {
+        TestRail.setTestCaseId("39028");
         // Open GSM Arena home page and verify page is opened
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
@@ -99,6 +118,7 @@ public class WebSampleTest implements IAbstractTest {
     @MethodOwner(owner = "qpsdemo")
     @TestLabel(name = "feature", value = {"web", "acceptance"})
     public void testNewsSearch() {
+        TestRail.setTestCaseId("39052");
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
