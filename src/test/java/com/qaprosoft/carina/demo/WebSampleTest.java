@@ -51,14 +51,10 @@ public class WebSampleTest implements IAbstractTest {
 
     @BeforeClass
     void setTestrailMeta() {
-        TestRail.createNewRun(true);
-        TestRail.setTestRunProjectId("21");
-        TestRail.setTestRunSuiteId("193");
-        TestRail.includeAllTestCaseTestsInNewRun();
-        TestRail.setTestRunName("New run to test agent 333");
-        TestRail.setTestRunMilestone("zxcxzcc");
-        TestRail.setTestRunAssignee("qaengineer@solvd.com");
-        Xray.disable();
+        TestRail.includeAllTestCasesInNewRun();
+//        TestRail.setRunId("448");
+        TestRail.setSuiteId("193");
+        TestRail.enableRealTimeSync();
     }
 
     @Test()
@@ -66,9 +62,9 @@ public class WebSampleTest implements IAbstractTest {
     @TestPriority(Priority.P3)
     @TestLabel(name = "feature", value = {"web", "regression"})
     public void testModelSpecs() {
+        TestRail.setCaseId("39024");
         Label.attachToTest("com.zebrunner.app/tcm.xray.test-key", "TEST-2");
         Label.attachToTestRun("com.zebrunner.app/tcm.xray.test-execution-key", "TEST-3");
-        TestRail.setTestCaseId("39024");
         // Open GSM Arena home page and verify page is opened
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
@@ -97,7 +93,7 @@ public class WebSampleTest implements IAbstractTest {
     @TestPriority(Priority.P1)
     @TestLabel(name = "feature", value = {"web", "acceptance"})
     public void testCompareModels() {
-        TestRail.setTestCaseId("39028");
+        TestRail.setCaseId("39028");
         // Open GSM Arena home page and verify page is opened
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
@@ -120,7 +116,7 @@ public class WebSampleTest implements IAbstractTest {
     @MethodOwner(owner = "qpsdemo")
     @TestLabel(name = "feature", value = {"web", "acceptance"})
     public void testNewsSearch() {
-        TestRail.setTestCaseId("39052");
+        TestRail.setCaseId("39052");
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
