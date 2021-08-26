@@ -17,6 +17,7 @@ package com.qaprosoft.carina.demo;
 
 import java.lang.invoke.MethodHandles;
 
+import com.zebrunner.agent.core.annotation.TestRailCaseId;
 import com.zebrunner.agent.core.registrar.TestRail;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.slf4j.Logger;
@@ -45,10 +46,10 @@ public class APISampleTest implements IAbstractTest {
 
     @BeforeClass
     void setTestrailMeta() {
-        TestRail.includeAllTestCasesInNewRun();
+//        TestRail.includeAllTestCasesInNewRun();
 //        TestRail.setRunId("448");
         TestRail.setSuiteId("193");
-        TestRail.enableRealTimeSync();
+//        TestRail.enableRealTimeSync();
     }
 
     @Test()
@@ -65,8 +66,8 @@ public class APISampleTest implements IAbstractTest {
 
     @Test()
     @MethodOwner(owner = "qpsdemo")
+    @TestRailCaseId({"39028", "39052"})
     public void testCreateUserMissingSomeFields() throws Exception {
-        TestRail.setCaseId("39028");
         PostUserMethod api = new PostUserMethod();
         api.getProperties().remove("name");
         api.getProperties().remove("username");
@@ -78,7 +79,6 @@ public class APISampleTest implements IAbstractTest {
     @Test()
     @MethodOwner(owner = "qpsdemo")
     public void testGetUsers() {
-        TestRail.setCaseId("39052");
         GetUserMethods getUsersMethods = new GetUserMethods();
         getUsersMethods.expectResponseStatus(HttpResponseStatusType.OK_200);
         getUsersMethods.callAPI();
