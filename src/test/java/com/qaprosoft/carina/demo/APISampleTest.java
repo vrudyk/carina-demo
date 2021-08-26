@@ -49,7 +49,7 @@ public class APISampleTest implements IAbstractTest {
 //        TestRail.includeAllTestCasesInNewRun();
 //        TestRail.setRunId("448");
         TestRail.setSuiteId("193");
-//        TestRail.enableRealTimeSync();
+        TestRail.enableRealTimeSync();
     }
 
     @Test()
