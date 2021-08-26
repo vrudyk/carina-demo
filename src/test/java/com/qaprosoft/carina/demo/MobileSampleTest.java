@@ -16,8 +16,11 @@
 package com.qaprosoft.carina.demo;
 
 import com.zebrunner.agent.core.annotation.TestLabel;
+import com.zebrunner.agent.core.annotation.TestRailCaseId;
+import com.zebrunner.agent.core.registrar.TestRail;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
@@ -36,9 +39,18 @@ import com.qaprosoft.carina.demo.utils.MobileContextUtils.View;
 
 public class MobileSampleTest implements IAbstractTest, IMobileUtils {
 
+    @BeforeClass
+    void setTestrailMeta() {
+        TestRail.includeAllTestCasesInNewRun();
+//        TestRail.setRunId("448");
+        TestRail.setSuiteId("193");
+        TestRail.enableRealTimeSync();
+    }
+
     @Test()
     @MethodOwner(owner = "qpsdemo")
     @TestLabel(name = "feature", value = {"mobile", "regression"})
+    @TestRailCaseId({"39028", "39052"})
     public void testLoginUser() {
         String username = "Test user";
         String password = RandomStringUtils.randomAlphabetic(10);
@@ -58,6 +70,7 @@ public class MobileSampleTest implements IAbstractTest, IMobileUtils {
     @MethodOwner(owner = "qpsdemo")
     @TestLabel(name = "feature", value = {"mobile", "regression"})
     public void testWebView() {
+        TestRail.setCaseId("39024");
         WelcomePageBase welcomePage = initPage(getDriver(), WelcomePageBase.class);
         LoginPageBase loginPage = welcomePage.clickNextBtn();
         loginPage.login();
