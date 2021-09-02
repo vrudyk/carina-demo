@@ -15,13 +15,6 @@
  */
 package com.qaprosoft.carina.demo;
 
-import java.lang.invoke.MethodHandles;
-
-import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.testng.annotations.Test;
-
 import com.qaprosoft.apitools.validation.JsonCompareKeywords;
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
 import com.qaprosoft.carina.core.foundation.api.http.HttpResponseStatusType;
@@ -31,6 +24,15 @@ import com.qaprosoft.carina.core.foundation.utils.tag.TestPriority;
 import com.qaprosoft.carina.demo.api.DeleteUserMethod;
 import com.qaprosoft.carina.demo.api.GetUserMethods;
 import com.qaprosoft.carina.demo.api.PostUserMethod;
+import com.zebrunner.agent.core.annotation.ZephyrTestCaseKey;
+import com.zebrunner.agent.core.registrar.Zephyr;
+import org.skyscreamer.jsonassert.JSONCompareMode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+import java.lang.invoke.MethodHandles;
 
 /**
  * This sample shows how create REST API tests.
@@ -40,10 +42,17 @@ import com.qaprosoft.carina.demo.api.PostUserMethod;
 public class APISampleTest implements IAbstractTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+    @BeforeClass
+    void setTestrailMeta() {
+        Zephyr.enableRealTimeSync();
+        Zephyr.setTestCycleKey("QAP-R1");
+        Zephyr.setJiraProjectKey("QAP");
+    }
 
     @Test()
     @MethodOwner(owner = "qpsdemo")
     public void testCreateUser() throws Exception {
+        Zephyr.setTestCaseKey("QAP-T1");
         LOGGER.info("test");
         setCases("4555,54545");
         PostUserMethod api = new PostUserMethod();
@@ -54,6 +63,7 @@ public class APISampleTest implements IAbstractTest {
 
     @Test()
     @MethodOwner(owner = "qpsdemo")
+    @ZephyrTestCaseKey({"QAP-T2", "QAP-T3"})
     public void testCreateUserMissingSomeFields() throws Exception {
         PostUserMethod api = new PostUserMethod();
         api.getProperties().remove("name");
@@ -64,6 +74,7 @@ public class APISampleTest implements IAbstractTest {
     }
 
     @Test()
+    @ZephyrTestCaseKey({"QAP-T4", "QAP-T5"})
     @MethodOwner(owner = "qpsdemo")
     public void testGetUsers() {
         GetUserMethods getUsersMethods = new GetUserMethods();
