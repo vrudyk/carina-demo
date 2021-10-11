@@ -15,17 +15,6 @@
  */
 package com.qaprosoft.carina.demo;
 
-import java.lang.invoke.MethodHandles;
-
-import com.zebrunner.agent.core.annotation.TestRailCaseId;
-import com.zebrunner.agent.core.registrar.TestRail;
-import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-
 import com.qaprosoft.apitools.validation.JsonCompareKeywords;
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
 import com.qaprosoft.carina.core.foundation.api.http.HttpResponseStatusType;
@@ -35,6 +24,15 @@ import com.qaprosoft.carina.core.foundation.utils.tag.TestPriority;
 import com.qaprosoft.carina.demo.api.DeleteUserMethod;
 import com.qaprosoft.carina.demo.api.GetUserMethods;
 import com.qaprosoft.carina.demo.api.PostUserMethod;
+import com.zebrunner.agent.core.annotation.TestRailCaseId;
+import com.zebrunner.agent.core.registrar.TestRail;
+import org.skyscreamer.jsonassert.JSONCompareMode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+import java.lang.invoke.MethodHandles;
 
 /**
  * This sample shows how create REST API tests.
@@ -49,7 +47,7 @@ public class APISampleTest implements IAbstractTest {
 //        TestRail.includeAllTestCasesInNewRun();
 //        TestRail.setRunId("448");
         TestRail.setSuiteId("193");
-        TestRail.enableRealTimeSync();
+//        TestRail.enableRealTimeSync();
     }
 
     @Test()
